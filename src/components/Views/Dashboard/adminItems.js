@@ -14,7 +14,7 @@ export const adminListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <Link to={{ pathname: "/manage" }} style={{ textDecoration: "none" }}>
+      <Link to={{ pathname: "/manage" }} style={{ textDecoration: "none",color:"#941f33" }}>
         <ListItemText primary="Stock Manage" />
       </Link>
     </ListItem>

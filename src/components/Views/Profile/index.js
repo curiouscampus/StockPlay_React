@@ -137,10 +137,8 @@ export default function SimplePaper() {
         </Link>
 
         <Box sx={{ flexGrow: 1, mb: 5, ml: 5, mr: 5 }}>
-          
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
-              
               <Item
                 sx={{
                   display: "flex",
@@ -165,14 +163,15 @@ export default function SimplePaper() {
                   {data.user.email}
                 </Typography>
                 <Divider sx={{ mt: 3, width: "100%", mb: 3 }} />
-                Current Wallet
+                Current Curious Coins
                 <Typography variant="h4" sx={{ mt: 1 }}>
-                  ${data.user.currentWalletValue.toFixed(2)}
+                  CC {data.user.currentWalletValue.toFixed(2)}
                 </Typography>
               </Item>
+              <Item>LEVEL {data && data.user ? data.user.level : "N/A"}</Item>
             </Grid>
             <Grid item xs={12} md={8}>
-            <StatusTabs />
+              <StatusTabs />
 
               <Typography sx={{ mb: "5px", fontWeight: "bold" }}>
                 Transactions

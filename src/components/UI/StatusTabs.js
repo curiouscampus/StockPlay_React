@@ -7,11 +7,13 @@ import { serverUrl } from "../../constants";
 import { GlobalContext } from "../context/Provider";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
+import { autoUpdate } from "../context/actions/auth/autoupdate";
 
 export default function StatusTabs() {
   const [portfolio, setPortfolioData] = React.useState(null);
 
   const {
+    authDispatch,
     stocksState: {
       stocks: { quotes },
     },
@@ -21,6 +23,21 @@ export default function StatusTabs() {
   } = React.useContext(GlobalContext);
 
   React.useEffect(() => {
+    const updateStocks = () => {
+      axios
+        .post(serverUrl + "/api/updateUserLevel", {
+          headers: {
+            Authorization: `Brearer ${data.token}`,
+          },
+        })
+        .then((res) => {
+          autoUpdate(res.data.user)(authDispatch);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
     const fetchData = () => {
       axios
         .get(serverUrl + "/api/stats", {
@@ -64,6 +81,19 @@ export default function StatusTabs() {
       });
       setPortfolioData(portfolio);
     }
+
+    let perc =
+      (portfolio.currentValue - portfolio.totalInvestment) /
+      portfolio.totalInvestment;
+
+    if ((data.user.level = 1 && perc >= 5)) {
+      updateStocks();
+    } else if ((data.user.level = 2 && perc >= 10)) {
+      updateStocks();
+    } else if ((data.user.level = 3 && perc >= 15)) {
+      updateStocks();
+    }
+
     return () => {};
   }, [data, quotes]);
   return (
@@ -88,7 +118,9 @@ export default function StatusTabs() {
               <Typography variant="subtitle2">Total Value</Typography>
 
               <Typography variant="button" display="block">
-                {(+data.user.currentWalletValue + +portfolio.currentValue).toFixed(2) }
+                {(
+                  +data.user.currentWalletValue + +portfolio.currentValue
+                ).toFixed(2)}
               </Typography>
             </Paper>
           </Grid>
@@ -110,7 +142,7 @@ export default function StatusTabs() {
               <Typography variant="subtitle2">Funds Available</Typography>
 
               <Typography variant="button" display="block">
-              {data.user.currentWalletValue.toFixed(2)}
+                {data.user.currentWalletValue.toFixed(2)}
               </Typography>
             </Paper>
           </Grid>

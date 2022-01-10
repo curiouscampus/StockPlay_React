@@ -157,7 +157,6 @@ function DashboardContent() {
       alert.error(error);
     }
   }, [quotes, error]);
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -212,7 +211,7 @@ function DashboardContent() {
         <Divider />
         <List>{mainListItems}</List>
         <Divider />
-        <List>{adminListItems}</List>
+        {!data.user.isAdmin ? <List>{adminListItems}</List> : null}
       </Drawer>
       <Box
         component="main"
@@ -226,7 +225,7 @@ function DashboardContent() {
         }}
       >
         <Container maxWidth="xl" sx={{ mt: 10, mb: 1 }}>
-        <StatusTabs />
+          <StatusTabs />
 
           <Grid container spacing={3} justifyContent="center">
             {/* Chart */}
@@ -258,9 +257,7 @@ function DashboardContent() {
                     height={550}
                   />
                 )}
-                <Box sx={{ mt: 1 }}>
-                  {" "}
-                </Box>
+                <Box sx={{ mt: 1 }}> </Box>
               </Paper>
             </Grid>
           </Grid>
