@@ -23,15 +23,21 @@ export default function StatusTabs() {
   } = React.useContext(GlobalContext);
 
   React.useEffect(() => {
-    const updateStocks = () => {
+    const updateStocks = (perc) => {
       axios
-        .post(serverUrl + "/api/updateUserLevel", {
-          headers: {
-            Authorization: `Brearer ${data.token}`,
+        .patch(
+          serverUrl + "/api/updateUserLevel",
+          {
+            percent: perc,
           },
-        })
+          {
+            headers: {
+              Authorization: `Brearer ${data.token}`,
+            },
+          }
+        )
         .then((res) => {
-          autoUpdate(res.data.user)(authDispatch);
+          autoUpdate(res.data.data.user)(authDispatch);
         })
         .catch((err) => {
           console.log(err);
@@ -81,21 +87,23 @@ export default function StatusTabs() {
       });
       setPortfolioData(portfolio);
     }
-
-    let perc =
-      (portfolio.currentValue - portfolio.totalInvestment) /
-      portfolio.totalInvestment;
-
-    if ((data.user.level = 1 && perc >= 5)) {
-      updateStocks();
-    } else if ((data.user.level = 2 && perc >= 10)) {
-      updateStocks();
-    } else if ((data.user.level = 3 && perc >= 15)) {
-      updateStocks();
+    if (portfolio !== null) {
+      let perc =
+        (portfolio.currentValue - portfolio.totalInvestment) /
+        portfolio.totalInvestment;
+      perc = perc * 100;
+      if ((data.user.level === 1 && perc >= 5)) {
+        updateStocks(perc);
+      } else if ((data.user.level === 2 && perc >= 10)) {
+        updateStocks(perc);
+      } else if ((data.user.level === 3 && perc >= 15)) {
+        updateStocks(perc);
+      }
     }
 
     return () => {};
   }, [data, quotes]);
+
   return (
     <Box
       sx={{

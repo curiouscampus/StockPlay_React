@@ -12,6 +12,9 @@ export const autoUpdate = (user) => (dispatch) => {
   let data = localStorage.getItem("data");
   data = JSON.parse(data);
   data = { ...data, user };
+
+  localStorage.data = JSON.stringify(data);
+
   if (data) {
     dispatch({
       type: LOGIN_SUCCESS,

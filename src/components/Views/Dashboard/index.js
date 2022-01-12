@@ -211,7 +211,7 @@ function DashboardContent() {
         <Divider />
         <List>{mainListItems}</List>
         <Divider />
-        {!data.user.isAdmin ? <List>{adminListItems}</List> : null}
+        {/* {!data.user.isAdmin ? <List>{adminListItems}</List> : null} */}
       </Drawer>
       <Box
         component="main"

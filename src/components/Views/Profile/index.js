@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import StatusTabs from "../../UI/StatusTabs";
 import { serverUrl } from "../../../constants";
+import HexagonIcon from "@mui/icons-material/Hexagon";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -68,6 +69,7 @@ export default function SimplePaper() {
   } = React.useContext(GlobalContext);
 
   React.useEffect(() => {
+    console.log(data);
     const fetchData = () => {
       setLoading(true);
       axios
@@ -168,7 +170,20 @@ export default function SimplePaper() {
                   CC {data.user.currentWalletValue.toFixed(2)}
                 </Typography>
               </Item>
-              <Item>LEVEL {data && data.user ? data.user.level : "N/A"}</Item>
+              <Item
+                sx={{
+                  fontWeight: "bold",
+                  display: "inline-flex",
+                  width: "95%",
+                  justifyContent: "center",
+                  mt: 2,
+                }}
+              >
+                <HexagonIcon sx={{ color: "#35858B", fontSize: 85 }} />
+                <Typography sx={{ml:2,mt:3,fontWeight:"bold"}}>
+                  LEVEL {data && data.user ? data.user.level + "" : "N/A"}
+                </Typography>
+              </Item>
             </Grid>
             <Grid item xs={12} md={8}>
               <StatusTabs />

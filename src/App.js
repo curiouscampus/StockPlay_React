@@ -39,7 +39,6 @@ function App() {
     authDispatch,
     stocksDispatch,
     authState: { auth },
-    sto,
   } = React.useContext(GlobalContext);
 
   React.useEffect(() => {
@@ -48,8 +47,7 @@ function App() {
 
   useInterval(async () => {
     if (auth.data !== null) {
-      updateQuotes()(stocksDispatch);
-      console.log("res pol set");
+      updateQuotes(auth.data.token)(stocksDispatch);
     }
   }, 20000);
 

@@ -2,9 +2,13 @@ import axios from "axios";
 import { serverUrl } from "../../../../constants";
 import { UPDATE_QUOTES, QUOTES_ERROR } from "../actionTypes";
 
-export const updateQuotes = () => (dispatch) => {
+export const updateQuotes = (token) => (dispatch) => {
   axios
-    .get(serverUrl + "/api/getListData", {})
+    .get(serverUrl + "/api/getListData", {
+      headers: {
+        Authorization: `Brearer ${token}`,
+      },
+    })
     .then((res) => {
       localStorage.quotes = JSON.stringify(res.data.data.quotes);
       dispatch({
