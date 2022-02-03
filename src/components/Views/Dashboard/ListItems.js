@@ -5,7 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
+import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
 
 export const mainListItems = (
@@ -42,5 +42,18 @@ export const mainListItems = (
         <ListItemText primary="Transactions" />{" "}
       </Link>
     </ListItem> */}
+  </div>
+);
+
+export const secondaryListItems = (
+  <div>
+    <ListItem sx={{ mt: 2, mb: 2, p2: 3, pb: 2 }} button>
+      <ListItemIcon>
+        <InfoIcon />
+      </ListItemIcon>
+      <Link to={{ pathname: "/about" }} style={{ textDecoration: "none" }}>
+        <ListItemText primary="About" />
+      </Link>
+    </ListItem>
   </div>
 );

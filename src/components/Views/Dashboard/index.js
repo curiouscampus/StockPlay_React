@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
+import HexagonIcon from "@mui/icons-material/Hexagon";
 
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,7 +16,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { mainListItems } from "./ListItems";
+import { mainListItems, secondaryListItems } from "./ListItems";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { GlobalContext } from "../../context/Provider";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -29,6 +30,7 @@ import { UPDATE_QUOTES } from "../../context/actions/actionTypes";
 import StatusTabs from "../../UI/StatusTabs";
 import { serverUrl } from "../../../constants";
 import { adminListItems } from "./adminItems";
+import { Button } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -187,6 +189,17 @@ function DashboardContent() {
           >
             Dashboard
           </Typography>
+          <Box sx={{ display: "flex", mr: 3 }}>
+            <Typography sx={{ position: "absolute", mt: 1, ml: 2 }}>
+              {data.user?.firstName}
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", mr: 5 }}>
+            <Typography sx={{ position: "absolute", mt: 1, ml: 2 }}>
+              {data.user?.level}
+            </Typography>
+            <HexagonIcon sx={{ color: "#35858B", fontSize: 45 }} />
+          </Box>
           <IconButton color="inherit" onClick={() => logout()(authDispatch)}>
             <LogoutIcon />
           </IconButton>
@@ -211,6 +224,7 @@ function DashboardContent() {
         <Divider />
         <List>{mainListItems}</List>
         <Divider />
+        <List>{secondaryListItems}</List>
         {/* {!data.user.isAdmin ? <List>{adminListItems}</List> : null} */}
       </Drawer>
       <Box

@@ -9,6 +9,17 @@ import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import { autoUpdate } from "../context/actions/auth/autoupdate";
 
+
+const monthDiff = (date) => {
+  let d1 = new Date(date)
+  let d2= new Date()
+  var months;
+  months = (d2.getFullYear() - d1.getFullYear()) * 12;
+  months -= d1.getMonth();
+  months += d2.getMonth();
+  return months <= 0 ? 0 : months;
+} 
+
 export default function StatusTabs() {
   const [portfolio, setPortfolioData] = React.useState(null);
 
@@ -92,11 +103,13 @@ export default function StatusTabs() {
         (portfolio.currentValue - portfolio.totalInvestment) /
         portfolio.totalInvestment;
       perc = perc * 100;
-      if ((data.user.level === 1 && perc >= 5)) {
+      
+      let months = monthDiff(data.user.createdAt)
+      if ((data.user.level === 1 && perc >= 5 && months >= 1)) {
         updateStocks(perc);
-      } else if ((data.user.level === 2 && perc >= 10)) {
+      } else if ((data.user.level === 2 && perc >= 10 && months >= 2)) {
         updateStocks(perc);
-      } else if ((data.user.level === 3 && perc >= 15)) {
+      } else if ((data.user.level === 3 && perc >= 15 && months >= 3)) {
         updateStocks(perc);
       }
     }

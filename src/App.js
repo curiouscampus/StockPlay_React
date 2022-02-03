@@ -23,6 +23,7 @@ const Dashboard = React.lazy(() => import("./components/Views/Dashboard"));
 const Details = React.lazy(() => import("./components/Views/Details"));
 const Profile = React.lazy(() => import("./components/Views/Profile"));
 const Manage = React.lazy(() => import("./components/Views/Admin"));
+const About = React.lazy(() => import("./components/Views/About"));
 
 
 const Portfolio = React.lazy(() => import("./components/Views/Portfolio"));
@@ -81,6 +82,7 @@ function App() {
             ) : (
               <>
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/manage" element={<Manage />} />
